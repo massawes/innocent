@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>ATC — Mfumo wa Mahudhurio ya Kidijitali</title>
+    <title>ATC — Digital Attendance System</title>
 
     <link rel="preload" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"></noscript>
@@ -18,11 +18,11 @@
             <div class="d-flex align-items-center justify-content-between">
                 <span class="ega-topbar-text">
                     <i class='bx bx-globe'></i>
-                    Jamhuri ya Muungano wa Tanzania
+                    United Republic of Tanzania
                 </span>
                 <div class="d-flex align-items-center gap-3">
                     <span class="ega-topbar-text d-none d-md-flex align-items-center gap-1">
-                        <i class='bx bx-shield-check'></i> Mfumo Rasmi
+                        <i class='bx bx-shield-check'></i> Official System
                     </span>
                     <div class="ega-tz-flag" title="Tanzania">
                         <span class="f-green"></span>
@@ -42,15 +42,15 @@
                     <img src="{{ asset('images/logo.png') }}" alt="ATC Logo" class="ega-brand-img">
                     <div>
                         <div class="ega-brand-name">ATC Attendance Portal</div>
-                        <div class="ega-brand-sub">Mfumo wa Mahudhurio ya Kidijitali</div>
+                        <div class="ega-brand-sub">Digital Attendance Management System</div>
                     </div>
                 </a>
                 <nav class="d-flex align-items-center gap-2">
                     <a href="{{ route('login') }}" class="ega-nav-outline">
-                        <i class='bx bx-log-in'></i> Ingia
+                        <i class='bx bx-log-in'></i> Login
                     </a>
                     <a href="{{ route('register') }}" class="ega-nav-primary">
-                        <i class='bx bx-user-plus'></i> Jisajili
+                        <i class='bx bx-user-plus'></i> Register
                     </a>
                 </nav>
             </div>
@@ -67,28 +67,28 @@
                     <div class="col-lg-7">
                         <div class="ega-badge ega-badge--light mb-4">
                             <i class='bx bx-badge-check'></i>
-                            Mfumo Rasmi wa ATC Digital
+                            Official ATC Digital System
                         </div>
 
                         <h1 class="ega-title ega-title--white mb-2">
-                            Mfumo wa Usimamizi wa<br>
-                            <span class="ega-title-accent--gold">Mahudhurio ya Wanafunzi</span>
+                            Student Attendance<br>
+                            <span class="ega-title-accent--gold">Management System</span>
                         </h1>
                         <p class="ega-title-en ega-title-en--light mb-4">Student Attendance Management System</p>
 
                         <p class="ega-copy ega-copy--white mb-5">
-                            Rekodi mahudhurio, simamia vifaa vya biometric na tazama ripoti —
-                            katika mfumo mmoja salama ulioundwa kwa wanafunzi, wahadhiri na wasimamizi.
+                            Record attendance, manage biometric devices and view reports —
+                            all in one secure system built for students, lecturers and administrators.
                         </p>
 
                         <div class="ega-actions mb-5">
                             <a href="{{ route('login') }}" class="ega-btn-main ega-btn-gold">
                                 <i class='bx bx-log-in'></i>
-                                Ingia Mfumoni
+                                Login
                             </a>
                             <a href="{{ route('register') }}" class="ega-btn-ghost ega-btn-ghost--white">
                                 <i class='bx bx-user-plus'></i>
-                                Jisajili Sasa
+                                Register Now
                             </a>
                         </div>
 
@@ -99,7 +99,7 @@
                                 </div>
                                 <div>
                                     <div class="ega-pill-title ega-pill-title--white">Biometric</div>
-                                    <div class="ega-pill-sub ega-pill-sub--white">Alama ya kidole</div>
+                                    <div class="ega-pill-sub ega-pill-sub--white">Fingerprint scan</div>
                                 </div>
                             </div>
                             <div class="ega-pill">
@@ -107,8 +107,8 @@
                                     <i class='bx bx-bar-chart-alt-2'></i>
                                 </div>
                                 <div>
-                                    <div class="ega-pill-title ega-pill-title--white">Ripoti za Moja kwa Moja</div>
-                                    <div class="ega-pill-sub ega-pill-sub--white">Wakati halisi</div>
+                                    <div class="ega-pill-title ega-pill-title--white">Live Reports</div>
+                                    <div class="ega-pill-sub ega-pill-sub--white">Real-time data</div>
                                 </div>
                             </div>
                             <div class="ega-pill">
@@ -116,8 +116,8 @@
                                     <i class='bx bx-shield-alt-2'></i>
                                 </div>
                                 <div>
-                                    <div class="ega-pill-title ega-pill-title--white">Usalama wa Juu</div>
-                                    <div class="ega-pill-sub ega-pill-sub--white">Majukumu tofauti</div>
+                                    <div class="ega-pill-title ega-pill-title--white">High Security</div>
+                                    <div class="ega-pill-sub ega-pill-sub--white">Role-based access</div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                                     <span class="dot-green"></span>
                                 </div>
                                 <div class="ega-browser-url">
-                                    <i class='bx bx-lock-alt'></i> mfumo.atc.ac.tz / dashboard
+                                    <i class='bx bx-lock-alt'></i> atc.ac.tz / dashboard
                                 </div>
                             </div>
 
@@ -145,8 +145,8 @@
                                 {{-- Header --}}
                                 <div class="ega-dash-header">
                                     <div>
-                                        <div class="ega-dash-eyebrow">MUHTASARI WA MFUMO</div>
-                                        <div class="ega-dash-title">Taarifa za Mahudhurio Kiganjani Mwako</div>
+                                        <div class="ega-dash-eyebrow">SYSTEM OVERVIEW</div>
+                                        <div class="ega-dash-title">Attendance Reports at Your Fingertips</div>
                                     </div>
                                     <div class="ega-dash-avatar">
                                         <i class='bx bx-user'></i>
@@ -167,25 +167,25 @@
                                         </div>
                                     </div>
                                     <div class="ega-metric-info">
-                                        <div class="ega-metric-title">Wastani wa Mahudhurio</div>
-                                        <div class="ega-metric-sub">Wiki hii · Madarasa yote</div>
+                                        <div class="ega-metric-title">Attendance Average</div>
+                                        <div class="ega-metric-sub">This week · All classes</div>
                                         <div class="ega-metric-trend">
                                             <i class='bx bx-trending-up'></i>
-                                            +2.3% wiki iliyopita
+                                            +2.3% from last week
                                         </div>
-                                        <div class="ega-metric-badge">Vizuri sana</div>
+                                        <div class="ega-metric-badge">Excellent</div>
                                     </div>
                                 </div>
 
                                 {{-- Weekly attendance mini-bars --}}
                                 <div class="ega-dash-bars-wrap">
-                                    <div class="ega-bars-label">Mahudhurio kwa Siku (Wiki hii)</div>
+                                    <div class="ega-bars-label">Daily Attendance (This Week)</div>
                                     <div class="ega-bars">
-                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:88%"></div><span>Jt</span></div>
-                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:92%"></div><span>Jm</span></div>
-                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:95%"></div><span>Jt</span></div>
-                                        <div class="ega-bar"><div class="ega-bar-fill ega-bar-active" style="height:97%"></div><span>Ak</span></div>
-                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:91%"></div><span>Ij</span></div>
+                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:88%"></div><span>Mon</span></div>
+                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:92%"></div><span>Tue</span></div>
+                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:95%"></div><span>Wed</span></div>
+                                        <div class="ega-bar"><div class="ega-bar-fill ega-bar-active" style="height:97%"></div><span>Thu</span></div>
+                                        <div class="ega-bar"><div class="ega-bar-fill" style="height:91%"></div><span>Fri</span></div>
                                     </div>
                                 </div>
 
@@ -193,19 +193,19 @@
                                 <div class="ega-dash-caps">
                                     <div class="ega-dash-cap-item">
                                         <div class="ega-dash-cap-icon"><i class='bx bx-fingerprint'></i></div>
-                                        <span>Rekodi Mahudhurio kwa Biometric</span>
+                                        <span>Record Attendance via Biometric</span>
                                     </div>
                                     <div class="ega-dash-cap-item">
                                         <div class="ega-dash-cap-icon ega-cap-green"><i class='bx bx-bar-chart-alt-2'></i></div>
-                                        <span>Tazama Ripoti ya Darasa</span>
+                                        <span>View Class Attendance Reports</span>
                                     </div>
                                     <div class="ega-dash-cap-item">
                                         <div class="ega-dash-cap-icon ega-cap-gold"><i class='bx bx-download'></i></div>
-                                        <span>Pakua Uchambuzi wa Mahudhurio</span>
+                                        <span>Download Attendance Analysis</span>
                                     </div>
                                     <div class="ega-dash-cap-item">
                                         <div class="ega-dash-cap-icon ega-cap-teal"><i class='bx bx-calendar-check'></i></div>
-                                        <span>Simamia Ratiba za Masomo</span>
+                                        <span>Manage Class Timetables</span>
                                     </div>
                                 </div>
 
@@ -221,8 +221,8 @@
         <section class="ega-services">
             <div class="container-fluid px-3 px-md-5">
                 <div class="text-center mb-5">
-                    <div class="ega-section-tag">Huduma za Mfumo</div>
-                    <h2 class="ega-section-title">Inafaa kwa kila mtumiaji</h2>
+                    <div class="ega-section-tag">System Services</div>
+                    <h2 class="ega-section-title">Designed for every user</h2>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
@@ -230,10 +230,10 @@
                             <div class="ega-card-icon">
                                 <i class='bx bx-user-check'></i>
                             </div>
-                            <h3 class="ega-card-title">Wanafunzi</h3>
-                            <p class="ega-card-desc">Angalia mahudhurio yako, ratiba ya masomo na hali ya ufaulu wa mitihani kwa urahisi.</p>
+                            <h3 class="ega-card-title">Students</h3>
+                            <p class="ega-card-desc">View your attendance, class timetable and exam eligibility status with ease.</p>
                             <a href="{{ route('login') }}" class="ega-card-link">
-                                Ingia <i class='bx bx-right-arrow-alt'></i>
+                                Login <i class='bx bx-right-arrow-alt'></i>
                             </a>
                         </div>
                     </div>
@@ -242,10 +242,10 @@
                             <div class="ega-card-icon">
                                 <i class='bx bx-chalkboard'></i>
                             </div>
-                            <h3 class="ega-card-title">Wahadhiri</h3>
-                            <p class="ega-card-desc">Simamia madarasa, rekodi mahudhurio kwa urahisi na toa ripoti za kina kuhusu wanafunzi.</p>
+                            <h3 class="ega-card-title">Lecturers</h3>
+                            <p class="ega-card-desc">Manage classes, record attendance easily and generate detailed student reports.</p>
                             <a href="{{ route('login') }}" class="ega-card-link">
-                                Ingia <i class='bx bx-right-arrow-alt'></i>
+                                Login <i class='bx bx-right-arrow-alt'></i>
                             </a>
                         </div>
                     </div>
@@ -254,10 +254,10 @@
                             <div class="ega-card-icon">
                                 <i class='bx bx-shield-quarter'></i>
                             </div>
-                            <h3 class="ega-card-title">Wasimamizi</h3>
-                            <p class="ega-card-desc">Fuatilia mwelekeo wa mahudhurio, simamia watumiaji na vifaa vya biometric kwa ufanisi.</p>
+                            <h3 class="ega-card-title">Administrators</h3>
+                            <p class="ega-card-desc">Monitor attendance trends, manage users and biometric devices efficiently.</p>
                             <a href="{{ route('login') }}" class="ega-card-link">
-                                Ingia <i class='bx bx-right-arrow-alt'></i>
+                                Login <i class='bx bx-right-arrow-alt'></i>
                             </a>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                 </div>
                 <div class="ega-footer-right">
                     <i class='bx bx-check-shield me-1'></i>
-                    Mfumo unaofuata viwango vya EGA Tanzania
+                    Follows EGA Tanzania Standards
                 </div>
             </div>
         </div>

@@ -1,15 +1,24 @@
 <?php
 
-namespace Database\Seeders;
-
-use App\Models\Permission;
-use App\Models\Role;
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class PermissionsSeeder extends Seeder
+return new class extends Migration
 {
+    /**
+     * Permissions design per role:
+     *
+     * LECTURER     – attendance CRUD, devices, reports for own classes
+     * HOD          – full department management
+     * REGISTRAR    – view/export attendance & analytics, manage students
+     * EXAM_OFFICER – exam eligibility, reports, timetable, users
+     * QA           – view attendance, analytics, reports (read-heavy)
+     * DIRECTOR     – analytics, departments, HODs, reports
+     * RECTOR       – top-level analytics and reports
+     * STUDENT      – own attendance, timetable, modules
+     */
     private array $permissions = [
+
         // ── LECTURER ──────────────────────────────────────────────
         ['name' => 'View Attendance Records',     'key' => 'view_attendance',          'group' => 'Attendance',   'roles' => ['lecturer']],
         ['name' => 'Mark Attendance',             'key' => 'create_attendance',        'group' => 'Attendance',   'roles' => ['lecturer']],
@@ -69,41 +78,110 @@ class PermissionsSeeder extends Seeder
         ['name' => 'View Enrolled Modules',       'key' => 'student_view_modules',     'group' => 'Modules',      'roles' => ['student']],
     ];
 
+    /**
+     * Default permission assignments per role (keys that are pre-assigned).
+     * HOD decides what to grant or revoke for each user.
+     */
     private array $defaults = [
-        'lecturer'            => ['view_attendance', 'create_attendance', 'edit_attendance', 'delete_attendance', 'manage_devices', 'view_own_reports'],
-        'hod'                 => ['hod_view_attendance', 'hod_export_reports', 'hod_manage_lecturers', 'hod_manage_modules', 'hod_manage_programs', 'hod_manage_roles', 'hod_manage_weeks', 'hod_manage_class_timings', 'hod_manage_students', 'hod_assign_modules', 'hod_manage_permissions', 'hod_view_analytics'],
-        'registrar'           => ['reg_view_attendance', 'reg_export_reports', 'reg_view_analytics'],
-        'examination_officer' => ['exam_view_eligibility', 'exam_view_reports', 'exam_manage_timetable', 'exam_manage_users', 'exam_export_reports'],
-        'quality_assurance'   => ['qa_view_attendance', 'qa_view_analytics', 'qa_view_reports'],
-        'director_academic'   => ['dir_view_analytics', 'dir_manage_departments', 'dir_manage_hods', 'dir_view_reports'],
-        'rector'              => ['rector_view_analytics', 'rector_view_reports'],
-        'student'             => ['student_view_attendance', 'student_view_timetable', 'student_view_modules'],
+        'lecturer'           => [
+            'view_attendance', 'create_attendance', 'edit_attendance',
+            'delete_attendance', 'manage_devices', 'view_own_reports',
+        ],
+        'hod'                => [
+            'hod_view_attendance', 'hod_export_reports', 'hod_manage_lecturers',
+            'hod_manage_modules', 'hod_manage_programs', 'hod_manage_roles',
+            'hod_manage_weeks', 'hod_manage_class_timings', 'hod_manage_students',
+            'hod_assign_modules', 'hod_manage_permissions', 'hod_view_analytics',
+        ],
+        'registrar'          => [
+            'reg_view_attendance', 'reg_export_reports', 'reg_view_analytics',
+            // reg_manage_students NOT assigned by default — HOD controls that
+        ],
+        'examination_officer' => [
+            'exam_view_eligibility', 'exam_view_reports',
+            'exam_manage_timetable', 'exam_manage_users', 'exam_export_reports',
+        ],
+        'quality_assurance'  => [
+            'qa_view_attendance', 'qa_view_analytics', 'qa_view_reports',
+            // qa_export_reports NOT assigned by default — requires explicit grant
+        ],
+        'director_academic'  => [
+            'dir_view_analytics', 'dir_manage_departments',
+            'dir_manage_hods', 'dir_view_reports',
+            // dir_export_reports NOT assigned by default
+        ],
+        'rector'             => [
+            'rector_view_analytics', 'rector_view_reports',
+            // rector_export_reports NOT assigned by default
+        ],
+        'student'            => [
+            'student_view_attendance', 'student_view_timetable', 'student_view_modules',
+        ],
     ];
 
-    public function run(): void
+    public function up(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('role_permissions')->truncate();
-        DB::table('permissions')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
+        // Upsert each permission (update applicable_roles if key already exists)
         foreach ($this->permissions as $perm) {
-            Permission::create([
-                'name'             => $perm['name'],
-                'key'              => $perm['key'],
-                'group'            => $perm['group'],
-                'applicable_roles' => $perm['roles'],
-            ]);
+            $exists = DB::table('permissions')->where('key', $perm['key'])->exists();
+
+            if ($exists) {
+                DB::table('permissions')->where('key', $perm['key'])->update([
+                    'name'             => $perm['name'],
+                    'group'            => $perm['group'],
+                    'applicable_roles' => json_encode($perm['roles']),
+                    'updated_at'       => now(),
+                ]);
+            } else {
+                DB::table('permissions')->insert([
+                    'name'             => $perm['name'],
+                    'key'              => $perm['key'],
+                    'group'            => $perm['group'],
+                    'applicable_roles' => json_encode($perm['roles']),
+                    'created_at'       => now(),
+                    'updated_at'       => now(),
+                ]);
+            }
         }
 
+        // Assign defaults to each role (only insert missing, never remove existing)
         foreach ($this->defaults as $roleName => $keys) {
-            $role = Role::whereRaw('LOWER(name) = ?', [strtolower($roleName)])->first();
-            if (! $role) {
+            $roleId = DB::table('roles')
+                ->whereRaw('LOWER(name) = ?', [strtolower($roleName)])
+                ->value('id');
+
+            if (! $roleId) {
                 continue;
             }
 
-            $permissionIds = Permission::whereIn('key', $keys)->pluck('id');
-            $role->permissions()->sync($permissionIds);
+            foreach ($keys as $key) {
+                $permId = DB::table('permissions')->where('key', $key)->value('id');
+                if (! $permId) {
+                    continue;
+                }
+
+                $already = DB::table('role_permissions')
+                    ->where('role_id', $roleId)
+                    ->where('permission_id', $permId)
+                    ->exists();
+
+                if (! $already) {
+                    DB::table('role_permissions')->insert([
+                        'role_id'       => $roleId,
+                        'permission_id' => $permId,
+                        'created_at'    => now(),
+                        'updated_at'    => now(),
+                    ]);
+                }
+            }
         }
     }
-}
+
+    public function down(): void
+    {
+        $keys = array_column($this->permissions, 'key');
+        $ids  = DB::table('permissions')->whereIn('key', $keys)->pluck('id');
+        DB::table('role_permissions')->whereIn('permission_id', $ids)->delete();
+        DB::table('permissions')->whereIn('key', $keys)->delete();
+    }
+};

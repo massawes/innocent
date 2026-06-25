@@ -2,14 +2,14 @@
     $user     = auth()->user();
     $role     = $user->role->name ?? 'User';
     $roleMap  = [
-        'student'              => ['label' => 'Mwanafunzi',    'icon' => 'bx-graduation',      'color' => 'role-student'],
-        'lecturer'             => ['label' => 'Mhadhiri',      'icon' => 'bx-chalkboard',      'color' => 'role-lecturer'],
-        'hod'                  => ['label' => 'Mkuu wa Idara', 'icon' => 'bx-briefcase-alt-2', 'color' => 'role-hod'],
-        'registrar'            => ['label' => 'Msajili',       'icon' => 'bx-id-card',         'color' => 'role-registrar'],
-        'examination_officer'  => ['label' => 'Afisa Mitihani','icon' => 'bx-check-shield',    'color' => 'role-exam'],
-        'quality_assurance'    => ['label' => 'Ubora (QA)',    'icon' => 'bx-badge-check',     'color' => 'role-qa'],
-        'director_academic'    => ['label' => 'Mkurugenzi',    'icon' => 'bx-building',        'color' => 'role-director'],
-        'rector'               => ['label' => 'Rector',        'icon' => 'bx-crown',           'color' => 'role-rector'],
+        'student'              => ['label' => 'Student',              'icon' => 'bx-graduation',      'color' => 'role-student'],
+        'lecturer'             => ['label' => 'Lecturer',             'icon' => 'bx-chalkboard',      'color' => 'role-lecturer'],
+        'hod'                  => ['label' => 'Head of Department',   'icon' => 'bx-briefcase-alt-2', 'color' => 'role-hod'],
+        'registrar'            => ['label' => 'Registrar',            'icon' => 'bx-id-card',         'color' => 'role-registrar'],
+        'examination_officer'  => ['label' => 'Examination Officer',  'icon' => 'bx-check-shield',    'color' => 'role-exam'],
+        'quality_assurance'    => ['label' => 'Quality Assurance (QA)','icon' => 'bx-badge-check',    'color' => 'role-qa'],
+        'director_academic'    => ['label' => 'Director Academic',    'icon' => 'bx-building',        'color' => 'role-director'],
+        'rector'               => ['label' => 'Rector',               'icon' => 'bx-crown',           'color' => 'role-rector'],
     ];
     $roleInfo  = $roleMap[strtolower($role)] ?? ['label' => $role, 'icon' => 'bx-user', 'color' => 'role-default'];
     $pageTitle = View::hasSection('page-title') ? View::getSection('page-title') : 'Dashboard';
@@ -26,7 +26,7 @@
             <div class="ega-topnav-title">
                 <span class="ega-topnav-page">{{ $pageTitle }}</span>
                 <span class="ega-topnav-sub d-none d-xl-inline">
-                    Mfumo wa Usimamizi wa Mahudhurio · ATC
+                    Attendance Management System · ATC
                 </span>
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="ega-topnav-centre d-none d-lg-flex">
             <div class="ega-search">
                 <i class='bx bx-search ega-search-icon'></i>
-                <input type="text" class="ega-search-input" placeholder="Tafuta wanafunzi, moduli, ripoti…" aria-label="Tafuta">
+                <input type="text" class="ega-search-input" placeholder="Search students, modules, reports…" aria-label="Search">
             </div>
         </div>
 
@@ -49,7 +49,7 @@
             </div>
 
             {{-- Notification bell --}}
-            <button class="ega-topnav-icon-btn" type="button" title="Arifa" aria-label="Arifa">
+            <button class="ega-topnav-icon-btn" type="button" title="Notifications" aria-label="Notifications">
                 <i class='bx bx-bell'></i>
                 <span class="ega-badge-dot"></span>
             </button>
@@ -80,7 +80,7 @@
                     <li><hr class="dropdown-divider my-1"></li>
                     <li>
                         <a class="dropdown-item ega-dropdown-item" href="{{ route('profile.edit') }}">
-                            <i class='bx bx-user-circle'></i> Wasifu Wangu
+                            <i class='bx bx-user-circle'></i> My Profile
                         </a>
                     </li>
                     <li><hr class="dropdown-divider my-1"></li>
@@ -88,7 +88,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="dropdown-item ega-dropdown-item ega-dropdown-logout">
-                                <i class='bx bx-log-out'></i> Toka Mfumoni
+                                <i class='bx bx-log-out'></i> Log Out
                             </button>
                         </form>
                     </li>

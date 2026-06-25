@@ -48,8 +48,9 @@
             <div class="alert alert-secondary d-flex align-items-center gap-3">
                 <i class="bx bx-shield-quarter fs-4"></i>
                 <div>
-                    No permissions have been set up in the system yet.
-                    <br><small class="text-muted">Add permissions to the database first via the seeder.</small>
+                    <strong>{{ $selectedRole->name }}</strong> role access is controlled by the system middleware —
+                    no fine-grained permissions are needed for this role.
+                    <br><small class="text-muted">Only roles like <em>Lecturer</em> have configurable permissions.</small>
                 </div>
             </div>
         @else

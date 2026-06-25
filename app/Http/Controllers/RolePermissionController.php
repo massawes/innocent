@@ -22,6 +22,7 @@ class RolePermissionController extends Controller
                 $roleName     = strtolower($selectedRole->name);
                 $assignedKeys = $selectedRole->permissions->pluck('key');
 
+                // Only show permissions whose applicable_roles includes this role
                 $groupedPermissions = Permission::all()
                     ->filter(fn($p) => in_array($roleName, $p->applicable_roles ?? []))
                     ->groupBy('group');

@@ -66,7 +66,7 @@
                         </a>
                     </div>
                 </div>
-                <small class="text-muted d-block mt-2">Select a week or subject. NTA level will be set automatically based on the selected subject.</small>
+                <small class="text-muted d-block mt-2">Chagua week au subject. NTA itajazwa automatically kulingana na subject uliyochagua.</small>
             </form>
         </div>
     </div>
@@ -130,7 +130,7 @@
                                         <td colspan="8" class="text-center py-5">
                                             <div class="lecturer-empty py-4 mx-3">
                                                 <h5 class="fw-bold mb-2">No matching data found</h5>
-                                                <p class="text-muted mb-0">Change the week or subject to see results.</p>
+                                                <p class="text-muted mb-0">Badilisha week au subject ili kuona matokeo.</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -151,8 +151,8 @@
             <div class="display-6 text-primary mb-2">
                 <i class='bx bx-calendar-week'></i>
             </div>
-            <h5 class="fw-bold mb-2">Select a week or subject</h5>
-            <p class="text-muted mb-0">Results will appear automatically after selecting a subject from the database.</p>
+            <h5 class="fw-bold mb-2">Chagua week au subject</h5>
+            <p class="text-muted mb-0">Results zitaonekana automatically baada ya kuchagua subject kutoka database.</p>
         </div>
     @endif
 </div>
